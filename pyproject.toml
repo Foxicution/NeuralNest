@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "neuralnest"
+version = "0.1.0"
+description = ""
+authors = ["Foxicution <foxicution@gmail.com>"]
+readme = "README.md"
+packages = [{include = "neuralnest", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+llama-index = "^0.8.11"
+sentence-transformers = "^2.2.2"
+sentencepiece = "^0.1.99"
+protobuf = "^4.24.2"
+bitsandbytes = "^0.41.1"
+accelerate = "^0.22.0"
+pymilvus = "^2.3.0"
+
+[tool.poetry.group.dev.dependencies]
+python-lsp-server = "^1.7.4"
+python-lsp-ruff = "^1.5.1"
+euporie = "^2.4.3"
+ipykernel = "^6.25.2"
+black = "^23.9.1"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "default"
+
+[[tool.poetry.source]]
+name = "torch"
+url = "https://download.pytorch.org/whl/cu118"
+priority = "supplemental"
