@@ -24,6 +24,10 @@ ipykernel = "^6.25.2"
 black = "^23.9.1"
 isort = "^5.12.0"
 
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.2"
+pyfakefs = "^5.2.4"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -36,3 +40,7 @@ priority = "default"
 name = "torch"
 url = "https://download.pytorch.org/whl/cu118"
 priority = "supplemental"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
