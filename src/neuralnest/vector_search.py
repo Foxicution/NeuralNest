@@ -1,10 +1,9 @@
-from dataclasses import fields
+from dataclasses import asdict, fields
 from typing import List, Type
-
-from pymilvus import CollectionSchema, DataType, FieldSchema, Milvus
 
 from neuralnest.config import MILVUS_HOST, MILVUS_PORT
 from neuralnest.vectorizers import FileMetadata, VectorizedFile
+from pymilvus import CollectionSchema, DataType, FieldSchema, Milvus
 
 TYPE_MAPPING = {str: DataType.STRING, int: DataType.INT64, float: DataType.FLOAT}
 
@@ -51,8 +50,19 @@ def create_milvus_collection_from_dataclass(
 
 # Insert vectors into the collection
 def insert_vectors(collection_name: str, vectorized_files: List[VectorizedFile]):
-    vectors = [file.vectorized_content for file in vectorized_files]
-    client.insert(collection_name, records=vectors)
+    # Generate the metadata insertion data dynamically and add vectors
+    data_to_insert = {
+        **{
+            field.name: [asdict(f.metadata)[field.name] for f in vectorized_files]
+            for field in fields(FileMetadata)
+        },
+        "vector": [f.vectorized_content for f in vectorized_files],
+    }
+
+    if client.has_collection(collection_name):
+        client.insert(collection_name, data_to_insert)
+    else:
+        raise ValueError(f"Collection {collection_name} does not exist.")
 
 
 # Search for similar vectors in the collection

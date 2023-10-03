@@ -1,3 +1,4 @@
+from dataclasses import fields
 from unittest.mock import Mock, patch
 
 import pytest
@@ -36,10 +37,19 @@ def test_create_milvus_collection_from_dataclass(mock_client, vectorized_test_fi
 def test_insert_vectors(mock_client, vectorized_test_file):
     insert_vectors(COLLECTION_NAME, [vectorized_test_file])
 
+    # Create expected data_to_insert
+    data_to_insert = {
+        **{
+            field.name: [getattr(vectorized_test_file.metadata, field.name)]
+            for field in fields(FileMetadata)
+        },
+        "vector": [vectorized_test_file.vectorized_content],
+    }
+
     # Ensure that client.insert is called with appropriate parameters
     mock_client.insert.assert_called_once_with(
         COLLECTION_NAME,
-        records=[vectorized_test_file.vectorized_content],
+        data_to_insert,
     )
 
 
