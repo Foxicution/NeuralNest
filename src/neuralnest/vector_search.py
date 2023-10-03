@@ -14,7 +14,7 @@ client = Milvus(host=MILVUS_HOST, port=MILVUS_PORT)
 # Create a collection in Milvus to store the vectors
 def create_milvus_collection_from_dataclass(
     collection_name: str, dataclass_type: Type[FileMetadata], vector_dim: int
-) -> Milvus:
+):
     # Extract fields from the dataclass
     dataclass_fields = fields(dataclass_type)
 
@@ -44,8 +44,6 @@ def create_milvus_collection_from_dataclass(
     # Create the collection in Milvus
     if not client.has_collection(collection_name):
         client.create_collection(collection_name, schema=schema)
-
-    return client
 
 
 # Insert vectors into the collection
