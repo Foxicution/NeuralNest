@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "neuralnest"
 version = "0.1.0"
-description = ""
+description = "NeuralNest: An open-source personal AI assistant designed for seamless data integration from various sources, offering versatile connections to Language Learning Models (LLMs), enhanced security, and human-in-the-loop options for a personalized AI experience."
 authors = ["Foxicution <foxicution@gmail.com>"]
 readme = "README.md"
 packages = [{include = "neuralnest", from = "src"}]
@@ -43,4 +43,4 @@ priority = "supplemental"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-
+filterwarnings = ["ignore::DeprecationWarning:pymilvus.client.*:"]

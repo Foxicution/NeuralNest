@@ -1,7 +1,8 @@
 from functools import cached_property
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, PreTrainedTokenizer
+from transformers import (AutoModelForCausalLM, AutoTokenizer,
+                          PreTrainedTokenizer)
 
 from neuralnest.config import MODEL_NAME
 
@@ -25,6 +26,10 @@ class _LazyModelLoader:
     def context_length(self) -> int:
         return self.model.config.max_position_embeddings
 
+    @cached_property
+    def vector_dimension(self) -> int:
+        return self.model.config.hidden_size
+
 
 # Create an instance of the _LazyModelLoader
 _loader = _LazyModelLoader()
@@ -33,3 +38,4 @@ _loader = _LazyModelLoader()
 tokenizer: PreTrainedTokenizer = _loader.tokenizer
 model: AutoModelForCausalLM = _loader.model
 context_length: int = _loader.context_length
+vector_dimension: int = _loader.vector_dimension
