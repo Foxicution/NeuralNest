@@ -23,6 +23,7 @@ euporie = "^2.4.3"
 ipykernel = "^6.25.2"
 black = "^23.9.1"
 isort = "^5.12.0"
+notebook = "^7.0.4"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.2"
