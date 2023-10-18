@@ -25,4 +25,4 @@ While the project is in its early stages, we appreciate any feedback or ideas. I
 
 ## License
 
-This project will be licensed under the MIT License. Details will be provided as the project matures.
+This project is licensed under the terms of the MIT License. For full license details, please see the `LICENSE` file in the project's root directory.
